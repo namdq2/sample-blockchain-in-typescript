@@ -1,0 +1,18 @@
+{
+  "name": "sample-blockchain-in-typescript",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "repository": "git@github.com:namdq2/sample-blockchain-in-typescript.git",
+  "author": "Nam Dang <namquoc.dev@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.2"
+  }
+}
