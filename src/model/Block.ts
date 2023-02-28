@@ -5,7 +5,7 @@ export default class Block {
     private previousHash: string;
     private hash: string;
 
-    public getPrevBlockHash() {
+    public getPrevBlockHash(): string {
         return this.previousHash;
     }
 
@@ -13,7 +13,7 @@ export default class Block {
         this.previousHash = prevBlockHash;
     }
 
-    public getTransactions() {
+    public getTransactions(): string[] {
         return this.transactions;
     }
 
@@ -21,7 +21,7 @@ export default class Block {
         this.transactions = transactions;
     }
 
-    public getHash() {
+    public getHash(): string {
         return this.hash;
     }
 
@@ -29,7 +29,7 @@ export default class Block {
         this.hash = hash;
     }
 
-    public getIndex() {
+    public getIndex(): number {
         return this.index;
     }
 
@@ -41,7 +41,7 @@ export default class Block {
         this.timestamp = timestamp;
     }
 
-    public getTimestamp() {
+    public getTimestamp(): number {
         return this.timestamp;
     }
 }

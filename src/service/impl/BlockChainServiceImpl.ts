@@ -18,13 +18,29 @@ export default class BlockChainServiceImpl implements BlockChainService {
     }
 
     addBlock(input: Block | string[]): void {
-        if (input instanceof Block) {
-            this.blockChain.addBlock(input);
+        if (!input) {
+            console.log(`Block must be not null.\n`);
             return;
         }
-
         const prevBlock = this.blockChain.getBlocks().at(-1);
-        const newBlock = this.blockService.newBlock(input, prevBlock);
-        this.blockChain.addBlock(newBlock);
+        let block: Block = input instanceof Block
+            ? input : this.blockService.newBlock(input, prevBlock);
+
+        const isValid = this.validateBlock(block, prevBlock);
+
+        if (isValid) {
+            this.blockChain.addBlock(block);
+            console.log(`Block ${block.getIndex()} added to the blockchain.\n`);
+        } else {
+            console.log(`Invalid block: ${JSON.stringify(block)}.\n`);
+        }
+    }
+
+    private validateBlock(block: Block, previousBlock: Block): boolean {
+        if (block.getIndex() !== previousBlock.getIndex() + 1) {
+            return false;
+        }
+
+        return block.getPrevBlockHash() === previousBlock.getHash();
     }
 }
