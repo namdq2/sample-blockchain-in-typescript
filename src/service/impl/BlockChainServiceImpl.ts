@@ -13,19 +13,16 @@ export default class BlockChainServiceImpl implements BlockChainService {
         this.blockChain.addBlock(this.blockService.newGenesisBlock());
     }
 
-    getBlockChain(): BlockChain {
+    getChain(): BlockChain {
         return this.blockChain;
     }
 
-    addBlock(input: Block | string[]): void {
-        if (!input) {
-            console.log(`Block must be not null.\n`);
-            return;
-        }
-        const prevBlock = this.blockChain.getBlocks().at(-1);
-        let block: Block = input instanceof Block
-            ? input : this.blockService.newBlock(input, prevBlock);
+    getLatestBlock(): Block {
+        return this.blockChain.getLatestBlock();
+    }
 
+    addBlock(block: Block): void {
+        const prevBlock = this.getLatestBlock();
         const isValid = this.validateBlock(block, prevBlock);
 
         if (isValid) {
@@ -41,6 +38,11 @@ export default class BlockChainServiceImpl implements BlockChainService {
             return false;
         }
 
-        return block.getPrevBlockHash() === previousBlock.getHash();
+        if (block.getPrevBlockHash() !== previousBlock.getHash()) {
+            return false;
+        }
+
+        const calculatedHash = this.blockService.calculateHash(block);
+        return block.getHash() === calculatedHash;
     }
 }

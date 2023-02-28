@@ -14,4 +14,8 @@ export default class BlockChain {
     public addBlock(block: Block) {
         this.blocks.push(block);
     }
+
+    public getLatestBlock() {
+        return this.blocks.at(-1);
+    }
 }
